@@ -5,6 +5,8 @@ import com.jpasample.dao.HiberDAO;
 import com.jpasample.model.Cat;
 import java.util.Collections;
 import java.util.List;
+
+import com.jpasample.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,13 +49,31 @@ public class MainController {
     }
 
     @RequestMapping("deleteCat.do")
-    public ModelAndView deleteCat(long id) {
+    public ModelAndView deleteCatId(long id) {
         ModelAndView mv = new ModelAndView("listalldata");
         //Cat c = dao.getCatById(1);
-        Cat c = dao.find(id);
-        dao.re
-        mv.addObject("cats", Collections.singletonList(c));
+        //Cat c = dao.find(id);
+        dao.deleteCat(id);
+        //mv.addObject("cats", Collections.singletonList(c));
+        List<Cat> allCats = dao.getAllCats();
+        mv.addObject("cats", allCats);
+
         return mv;
+        //return showAll();
+    }
+
+    @RequestMapping("deletePerson.do")
+    public ModelAndView deletePersonId(long id) {
+        ModelAndView mv = new ModelAndView("listalldata");
+        //Cat c = dao.getCatById(1);
+        //Cat c = dao.find(id);
+        dao.deletePerson(id);
+        //mv.addObject("cats", Collections.singletonList(c));
+        List<Person> allPersons = dao.getAllPersons();
+        mv.addObject("persons", allPersons);
+
+        return mv;
+        //return showAll();
     }
         
     @RequestMapping("init.do")

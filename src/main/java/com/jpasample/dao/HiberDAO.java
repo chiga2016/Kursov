@@ -21,7 +21,7 @@ public class HiberDAO {
     
     private Random r = new Random();
     private String lastStatus;
-    
+
     public HiberDAO() {
     }
     
@@ -67,9 +67,14 @@ public class HiberDAO {
         em.persist(c);
         c = new Cat("Pushok", 0.5f, null);
         em.persist(c);
-        
-//       Person p = new Person("Ivan");
-//       em.persist(p);
+
+        em.createQuery("delete from Person c where c.id>0").executeUpdate();
+       Person p = new Person("Ivan");
+        em.persist(p);
+        Person p2 = new Person("Karl");
+        em.persist(p2);
+        Person p3 = new Person("Putin");
+        em.persist(p3);
         
         em.getTransaction().commit();
         lastStatus = "Кошки построены!";
@@ -101,9 +106,58 @@ public class HiberDAO {
 
     public void remove(Cat c){
         EntityManager em = emf.createEntityManager();
-        Query query = em.remove (c); //"select c from Cat c where c.id=:paramName ");
+        //Query query = em.remove (c); //"select c from Cat c where c.id=:paramName ");
         //query.setParameter("paramName", i);
        // Cat res = (Cat)query.getSingleResult();
     }
 
+    public void deleteCat(long id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Cat c = find( id);
+        c=em.merge(c);
+        em.remove(c);
+//
+//        //Query query = em.createQuery("delete from Cat c where c=:paramName ");
+//        //query.setParameter("paramName", с);
+//        Query query =em.createQuery("delete from Cat c where c=:paramId ");
+//        query.setParameter("paramId", id);
+//        query.executeUpdate();
+       // Cat c;
+     //   em.createQuery("delete from Cat c where c.id>0").executeUpdate();
+//       Person p = new Person("Ivan");
+//       em.persist(p);
+
+        em.getTransaction().commit();
+        lastStatus = "Кошка удалена!";
+    }
+
+    public void deletePerson(long id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        //em.createQuery("delete  from Person p where p.id=:?").setParameter(1,id).executeUpdate();
+
+        Query query = em.createQuery("DELETE FROM Person p WHERE p.id = :param ");
+        query.setParameter("param", id);
+        int rowsDeleted = query.executeUpdate();
+
+       // em.createQuery("delete from Person c where c.id>0").executeUpdate();
+//        Cat c = find( id);
+//        c=em.merge(c);
+//        em.remove(c);
+//
+//        //Query query = em.createQuery("delete from Cat c where c=:paramName ");
+//        //query.setParameter("paramName", с);
+//        Query query =em.createQuery("delete from Cat c where c=:paramId ");
+//        query.setParameter("paramId", id);
+//        query.executeUpdate();
+        // Cat c;
+        //   em.createQuery("delete from Cat c where c.id>0").executeUpdate();
+//       Person p = new Person("Ivan");
+//       em.persist(p);
+
+        em.getTransaction().commit();
+        lastStatus = "Персона удалена!";
+    }
 }
