@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+          http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+">
+
+     <bean  name="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
+        <property name="url" value="jdbc:derby://localhost:1527/test;create=true"/>
+        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
+        <property name="username" value="test"/>
+        <property name="password" value="test"/>
+    </bean>
+    
+    <!-- Будем искать JPA - аннотации -->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+    <!-- Создаём фабрику EMF для работы с JPA через источник данных dataSource -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+          <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- *****************************-->
+
+    <!-- На сервере приложений можно получить фабрику EMF из JNDI, про dataSource она уже знает там -->
+    <!-- <jee:jndi-lookup id="entityManagerFactory" jndi-name="persistence/myPersistenceUnit"/>-->
+
+    <!-- 2.1 Создаём менеджер транзакций, привязанный к источнику данных JPA-фабрики  -->
+ <!--   <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+  -->  
+
+    <!-- 2.2 Создаём менеджер транзакций JTA -->
+    <!-- JTA-транзакции не привязаны к источнику данных, относятся к серверу приложений -->
+    <!-- 
+    <bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" />
+    -->
+
+    <!-- Обработчик аннотаций @Transactional , связанных с транзакциями  -->
+<!--
+    <tx:annotation-driven transaction-manager="txManager"/> 
+-->
+    <!-- Нужно ли добавлять к методам классов, помеченных как @Repository,
+    оборачивание ислючений доступа кданным в универсальное DAO-исключение-->
+<!--
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/> 
+-->
+
+    <!-- 3.1 Ищем DAO автоматически по аннотациям -->
+    <context:component-scan base-package="com.jpasample.dao"/> 
+    <context:component-scan base-package="com.jpasample.services"/> 
+    
+    
+</beans>

@@ -1,0 +1,73 @@
+ul.menu li:hover {
+    background-color: yellow;
+    border-color: red;
+    border-style: none;
+    border-style: hidden; 
+    border-radius: 10px;
+}
+
+ul.menu li a {
+    display: block;
+    text-decoration: none;
+}
+
+ul.menu {
+/*    // display: inline-table;*/
+    list-style: none;
+     font-size: large;    
+}
+ul.menu li {
+        padding-top: 0.5em;
+        padding-left: 0.25em;
+        padding-right: 0.25em;
+        padding-bottom: 0.5em;
+        font-size: 100%;
+        margin-left: -20px;
+/*        //border-style: solid;*/
+}
+
+.btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+table
+{
+color:#000;
+background: #DFD;
+border-collapse:collapse;
+border:2px solid lightseagreen;
+/*min-width: 80%; */
+}
+
+tbody tr td
+{
+padding:.5em 1em;
+}
+
+tbody tr:nth-child(even) td {    background: yellowgreen; }
+
+div.status {
+    color: red;
+}
