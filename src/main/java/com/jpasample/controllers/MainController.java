@@ -43,8 +43,9 @@ public class MainController {
     public ModelAndView showOne(long id) {
         ModelAndView mv = new ModelAndView("listalldata");
         //Cat c = dao.getCatById(1);
-        Cat c = dao.find(id);
+        Cat c = dao.findCat(id);
         mv.addObject("cats", Collections.singletonList(c));
+        mv.addObject("persons", dao.getAllPersons());
         return mv;              
     }
 
@@ -57,6 +58,7 @@ public class MainController {
         //mv.addObject("cats", Collections.singletonList(c));
         List<Cat> allCats = dao.getAllCats();
         mv.addObject("cats", allCats);
+        mv.addObject("persons", dao.getAllPersons());
 
         return mv;
         //return showAll();
@@ -65,13 +67,18 @@ public class MainController {
     @RequestMapping("deletePerson.do")
     public ModelAndView deletePersonId(long id) {
         ModelAndView mv = new ModelAndView("listalldata");
+
+
+
         //Cat c = dao.getCatById(1);
         //Cat c = dao.find(id);
-        dao.deletePerson(id);
+       dao.deletePerson(id);
         //mv.addObject("cats", Collections.singletonList(c));
+        List<Cat> allCats = dao.getAllCats();
         List<Person> allPersons = dao.getAllPersons();
         mv.addObject("persons", allPersons);
 
+        mv.addObject("cats", allCats);
         return mv;
         //return showAll();
     }
@@ -87,7 +94,24 @@ public class MainController {
         dao.addRandomCat();
         return showAll();             
     }
-    
+
+    @RequestMapping("changeOwner.do")
+    public ModelAndView changeOwner(long pid, long cid) {
+        ModelAndView mv = new ModelAndView("listalldata");
+        //Cat c = dao.getCatById(1);
+        //Cat c = dao.find(id);
+        //dao.deletePerson(id);
+        //mv.addObject("cats", Collections.singletonList(c));
+        List<Cat> allCats = dao.getAllCats();
+        List<Person> allPersons = dao.getAllPersons();
+        mv.addObject("persons", allPersons);
+
+        mv.addObject("cats", allCats);
+        return mv;
+        //return showAll();
+    }
+
+    //
     
 
     

@@ -18,15 +18,24 @@ public class Cat {
     @GeneratedValue
     @Column(name="CAT_ID")
     private long id; // identifier
-
     String name;
-
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date birthdate;
     private float weight;
-    
-    @Transient
+
+    //  @Transient
+    @ManyToOne(cascade={CascadeType.ALL/*CascadeType.PERSIST*/})
     private Person owner;
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
+
+
 
     public Cat() {
     }

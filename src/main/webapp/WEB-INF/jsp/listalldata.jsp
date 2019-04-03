@@ -23,7 +23,7 @@
                 <form action="deletePerson.do">  <input type="submit" value="Удалить человека по ID: "/> <input name="id"/> </form>
             </li>
             <li>
-                <form action=".do">  Отдать кошку c ID= <input name="cid"/>  человеку c ID=<input name="pid"/><input type="submit" value="OK"> </form>
+                <form action="changeOwner.do">  Отдать кошку c ID= <input name="cid"/>  человеку c ID=<input name="pid"/><input type="submit" value="OK"> </form>
             </li>
             
                     
@@ -36,8 +36,8 @@
                 <td>${x.id}</td>
                 <td>${x.name}</td>
                 <td>${x.weight}</td>
-                <td>{x.owner.id}</td>
-                
+                <td>${x.owner.id}</td>
+                <td>${x.owner.name}</td>
             </tr>
         </c:forEach>
         <tbody></table>

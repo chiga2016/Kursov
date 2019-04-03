@@ -57,25 +57,42 @@ public class HiberDAO {
         
         //em.createQuery("delete from Cat c where c.id>0").executeUpdate();
         
-        Cat c;
+        //Cat c;
         em.getTransaction().begin();
         em.createQuery("delete from Cat c where c.id>0").executeUpdate();
-        
-        c = new Cat("Barsik", 5.0f, null);
-        em.persist(c);
-        c = new Cat("Muska", 2.0f, null);
-        em.persist(c);
-        c = new Cat("Pushok", 0.5f, null);
-        em.persist(c);
-
         em.createQuery("delete from Person c where c.id>0").executeUpdate();
-       Person p = new Person("Ivan");
-        em.persist(p);
-        Person p2 = new Person("Karl");
+       Person p1 = new Person("Ivan");
+
+        Person p2 = new Person("Oleg");
         em.persist(p2);
-        Person p3 = new Person("Putin");
+        Person p3 = new Person("Petr");
         em.persist(p3);
-        
+        Person p4 = new Person("Anton");
+        em.persist(p4);
+        Person p5 = new Person("Bob");
+        em.persist(p5);
+
+
+        Cat c1 = new Cat("Barsik", 5.0f, p1);
+        //em.persist(c1);
+        Cat c2 = new Cat("Muska", 2.0f, null);
+        em.persist(c2);
+        Cat c3 = new Cat("Pushok", 0.5f, null);
+        em.persist(c3);
+        Cat c4 = new Cat("Tom", 0.6f, p1);
+        //em.persist(c4);
+
+        p1.getCats().add(c1);
+        p1.getCats().add(c4);
+        em.persist(p1);
+
+
+       // c1.setOwner(p2);
+
+
+
+
+
         em.getTransaction().commit();
         lastStatus = "Кошки построены!";
         
@@ -91,7 +108,7 @@ public class HiberDAO {
         return new Cat("??", 0f, null);
     }
 
-    public Cat find(long i) {
+    public Cat findCat(long i) {
         EntityManager em = emf.createEntityManager();
         Query query = em.createQuery("select c from Cat c where c.id=:paramName ");
         query.setParameter("paramName", i);
@@ -104,30 +121,20 @@ public class HiberDAO {
         return res;
     }
 
-    public void remove(Cat c){
+    public Person findPerson(long i) {
         EntityManager em = emf.createEntityManager();
-        //Query query = em.remove (c); //"select c from Cat c where c.id=:paramName ");
-        //query.setParameter("paramName", i);
-       // Cat res = (Cat)query.getSingleResult();
+        Query query = em.createQuery("select c from Person c where c.id=:paramName ");
+        query.setParameter("paramName", i);
+        Person res = (Person)query.getSingleResult();
+        return res;
     }
 
     public void deleteCat(long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Cat c = find( id);
+        Cat c = findCat( id);
         c=em.merge(c);
         em.remove(c);
-//
-//        //Query query = em.createQuery("delete from Cat c where c=:paramName ");
-//        //query.setParameter("paramName", с);
-//        Query query =em.createQuery("delete from Cat c where c=:paramId ");
-//        query.setParameter("paramId", id);
-//        query.executeUpdate();
-       // Cat c;
-     //   em.createQuery("delete from Cat c where c.id>0").executeUpdate();
-//       Person p = new Person("Ivan");
-//       em.persist(p);
-
         em.getTransaction().commit();
         lastStatus = "Кошка удалена!";
     }
@@ -135,29 +142,30 @@ public class HiberDAO {
     public void deletePerson(long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-
         //em.createQuery("delete  from Person p where p.id=:?").setParameter(1,id).executeUpdate();
-
-        Query query = em.createQuery("DELETE FROM Person p WHERE p.id = :param ");
-        query.setParameter("param", id);
-        int rowsDeleted = query.executeUpdate();
-
-       // em.createQuery("delete from Person c where c.id>0").executeUpdate();
-//        Cat c = find( id);
-//        c=em.merge(c);
-//        em.remove(c);
-//
-//        //Query query = em.createQuery("delete from Cat c where c=:paramName ");
-//        //query.setParameter("paramName", с);
-//        Query query =em.createQuery("delete from Cat c where c=:paramId ");
-//        query.setParameter("paramId", id);
-//        query.executeUpdate();
-        // Cat c;
-        //   em.createQuery("delete from Cat c where c.id>0").executeUpdate();
-//       Person p = new Person("Ivan");
-//       em.persist(p);
+//                Query query = em.createQuery("DELETE FROM Person p WHERE p.id = :param ");
+//                query.setParameter("param", id);
+//                int rowsDeleted = query.executeUpdate();
+        Person p = findPerson(id);
+        p=em.merge(p);
+        em.remove(p);
 
         em.getTransaction().commit();
         lastStatus = "Персона удалена!";
     }
+
+    public void changePerson(long pid, long cid) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Cat c = findCat(cid) ;
+       // c.setOwner(pid);
+        //em.createQuery("delete  from Person p where p.id=:?").setParameter(1,id).executeUpdate();
+        //Query query = em.createQuery("DELETE FROM Person p WHERE p.id = :param ");
+        //query.setParameter("param", id);
+        //int rowsDeleted = query.executeUpdate();
+
+        em.getTransaction().commit();
+        lastStatus = "Кошка переприсвоена!";
+    }
+
 }
