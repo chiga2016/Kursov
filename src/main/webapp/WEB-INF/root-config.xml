@@ -32,10 +32,10 @@
     <!-- <jee:jndi-lookup id="entityManagerFactory" jndi-name="persistence/myPersistenceUnit"/>-->
 
     <!-- 2.1 Создаём менеджер транзакций, привязанный к источнику данных JPA-фабрики  -->
- <!--   <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
-  -->  
+
 
     <!-- 2.2 Создаём менеджер транзакций JTA -->
     <!-- JTA-транзакции не привязаны к источнику данных, относятся к серверу приложений -->
@@ -44,9 +44,9 @@
     -->
 
     <!-- Обработчик аннотаций @Transactional , связанных с транзакциями  -->
-<!--
+
     <tx:annotation-driven transaction-manager="txManager"/> 
--->
+
     <!-- Нужно ли добавлять к методам классов, помеченных как @Repository,
     оборачивание ислючений доступа кданным в универсальное DAO-исключение-->
 <!--

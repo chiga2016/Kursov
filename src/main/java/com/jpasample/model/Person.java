@@ -26,17 +26,15 @@ public class Person {
         //cats.add(new Cat("?",1f, this));
     }
 
-    @OneToMany(mappedBy="owner",cascade={CascadeType.ALL /*CascadeType.PERSIST*/}) // НОВЫХ элементов в БД обратная сторона связи не добавляет!
+    @OneToMany(mappedBy="owner"/*, fetch = FetchType.EAGER*/, cascade={CascadeType.ALL, /*CascadeType.PERSIST*/}) // НОВЫХ элементов в БД обратная сторона связи не добавляет!
     //@OneToMany // осторожно - это независимая связь, а не другой конец @ManyToOne! порождает доп. таблицу
     //   private Set<Cat> cats = new HashSet<Cat>(); // без номера и порядка!
     //@OrderBy(value="name desc")
     //@Transient
-    private List<Cat> cats = new ArrayList<Cat>();     // c номером и порядком!
-    
+    private List<Cat> cats = new ArrayList<Cat>();     // c номером и порядком
     
     //private Set<Cat> cats = new HashSet<Cat>();     // без номера и порядка!
 
-    
     public List<Cat> getCats() {
         return cats;
     }
@@ -52,7 +50,6 @@ public class Person {
             sb.append(c.getId());
             sb.append(',');
         }
-             
         return sb.toString();
     }
 
@@ -63,7 +60,6 @@ public class Person {
             sb.append(c.getName());
             sb.append(',');
         }
-
         return sb.toString();
     }
     

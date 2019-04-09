@@ -35,8 +35,6 @@ public class Cat {
         this.owner = owner;
     }
 
-
-
     public Cat() {
     }
 
