@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.EntityManager;
+
 @Controller
 public class MainController {
     
@@ -43,6 +45,7 @@ public class MainController {
     public ModelAndView showOne(long id) {
         ModelAndView mv = new ModelAndView("listalldata");
         //Cat c = dao.getCatById(1);
+
         Cat c = dao.findCat(id);
         mv.addObject("cats", Collections.singletonList(c));
         mv.addObject("persons", dao.getAllPersons());
@@ -67,9 +70,6 @@ public class MainController {
     @RequestMapping("deletePerson.do")
     public ModelAndView deletePersonId(long id) {
         ModelAndView mv = new ModelAndView("listalldata");
-
-
-
         //Cat c = dao.getCatById(1);
         //Cat c = dao.find(id);
        dao.deletePerson(id);
@@ -98,8 +98,12 @@ public class MainController {
     @RequestMapping("changeOwner.do")
     public ModelAndView changeOwner(long pid, long cid) {
         ModelAndView mv = new ModelAndView("listalldata");
+
+        dao.changePerson(pid, cid);
         //Cat c = dao.getCatById(1);
-        //Cat c = dao.find(id);
+//        Cat c = dao.findCat(cid);
+//        Person p = dao.findPerson(pid);
+//        c.setOwner(p);
         //dao.deletePerson(id);
         //mv.addObject("cats", Collections.singletonList(c));
         List<Cat> allCats = dao.getAllCats();

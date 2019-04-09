@@ -55,6 +55,17 @@ public class Person {
              
         return sb.toString();
     }
+
+    public String getCatNames() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Cats: ");
+        for (Cat c : cats) {
+            sb.append(c.getName());
+            sb.append(',');
+        }
+
+        return sb.toString();
+    }
     
     // Неизвестно, как отображать в БД
     // private Map<String,Cat> catMap = new HashMap<String,Cat>();

@@ -48,7 +48,8 @@
             <tr>
                 <td>${x.id}</td>
                 <td>${x.name}</td>
-                <td>${x.catIds}</td>    
+                <td>${x.catIds}</td>
+                <td>${x.catNames}</td>
             </tr>
         </c:forEach>
         <tbody></table>
