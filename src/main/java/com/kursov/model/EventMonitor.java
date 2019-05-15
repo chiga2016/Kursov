@@ -1,5 +1,5 @@
 
-package com.jpasample.model;
+package com.kursov.model;
 
 import javax.persistence.*;
 

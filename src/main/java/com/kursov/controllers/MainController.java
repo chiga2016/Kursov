@@ -1,22 +1,24 @@
 
-package com.jpasample.controllers;
+package com.kursov.controllers;
 
-import com.jpasample.dao.HiberDAO;
-import com.jpasample.model.Cat;
+import com.kursov.dao.HiberDAO;
+import com.kursov.model.Cars;
+import com.kursov.model.Cat;
 import java.util.Collections;
 import java.util.List;
 
-import com.jpasample.model.Person;
+import com.kursov.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.persistence.EntityManager;
 
 @Controller
 public class MainController {
@@ -34,10 +36,10 @@ public class MainController {
     @RequestMapping("list.do")
     public ModelAndView showAll() {
         ModelAndView mv = new ModelAndView("listalldata");
-        List<Cat> allCats = dao.getAllCats();
-        mv.addObject("cats", allCats);
+        List<Cars> allCars = dao.getAllCars();
+        mv.addObject("cars", allCars);
         mv.addObject("persons", dao.getAllPersons());
-        log.info(allCats.toString());
+        log.info(allCars.toString());
         return mv;              
     }
     
@@ -46,41 +48,46 @@ public class MainController {
         ModelAndView mv = new ModelAndView("listalldata");
         //Cat c = dao.getCatById(1);
 
-        Cat c = dao.findCat(id);
+        Cars c = dao.findCar(id);
         mv.addObject("cats", Collections.singletonList(c));
         mv.addObject("persons", dao.getAllPersons());
         return mv;              
     }
 
-    @RequestMapping("deleteCat.do")
-    public ModelAndView deleteCatId(long id) {
+    @RequestMapping("/delete/car/{id}")
+    public ModelAndView deleteCarId(@PathVariable("id") long id) {
         ModelAndView mv = new ModelAndView("listalldata");
         //Cat c = dao.getCatById(1);
         //Cat c = dao.find(id);
-        dao.deleteCat(id);
+        dao.deleteCar(id);
         //mv.addObject("cats", Collections.singletonList(c));
-        List<Cat> allCats = dao.getAllCats();
-        mv.addObject("cats", allCats);
+        List<Cars> allCars = dao.getAllCars();
+        mv.addObject("cars", allCars);
         mv.addObject("persons", dao.getAllPersons());
 
         return mv;
         //return showAll();
     }
 
-    @RequestMapping("deletePerson.do")
-    public ModelAndView deletePersonId(long id) {
+    @RequestMapping("/delete/person/{id}")
+    public ModelAndView deletePersonId(@PathVariable("id") long id) {
         ModelAndView mv = new ModelAndView("listalldata");
         //Cat c = dao.getCatById(1);
         //Cat c = dao.find(id);
        dao.deletePerson(id);
         //mv.addObject("cats", Collections.singletonList(c));
-        List<Cat> allCats = dao.getAllCats();
+        List<Cars> allCars = dao.getAllCars();
         List<Person> allPersons = dao.getAllPersons();
         mv.addObject("persons", allPersons);
 
-        mv.addObject("cats", allCats);
+        mv.addObject("cats", allCars);
         return mv;
         //return showAll();
+    }
+
+    @RequestMapping("showPersons")
+    public String showPersons(){
+        return "showPersons";
     }
         
     @RequestMapping("init.do")
@@ -88,12 +95,32 @@ public class MainController {
         dao.init();
         return "redirect:list.do";
     }
-    
-    @RequestMapping("addcat.do")
-    public ModelAndView addCat() {
-        dao.addRandomCat();
-        return showAll();             
+
+    @RequestMapping(value = "/add/person", method = RequestMethod.POST)
+    public ModelAndView addUser(@ModelAttribute("user") Person person)  {
+        dao.addPerson(person.getFam(), person.getName(), person.getOt(), person.getDr() );
+        return showAll();
     }
+
+
+    @RequestMapping(value = "/add/car", method = RequestMethod.POST)
+    public ModelAndView addCar(@ModelAttribute("cars") Cars cars)  {
+        dao.addCars(cars.getName(), cars.getModel(), cars.getKorobka(), cars.getYear() );
+        return showAll();
+    }
+
+    @RequestMapping("addCar.do")
+    public String addCar(){
+        return "addCar";
+    }
+
+
+    @RequestMapping("addPerson.do")
+    public String addPerson(){
+        return "addperson";
+    }
+
+
 
     @RequestMapping("changeOwner.do")
     public ModelAndView changeOwner(long pid, long cid) {
@@ -106,11 +133,11 @@ public class MainController {
 //        c.setOwner(p);
         //dao.deletePerson(id);
         //mv.addObject("cats", Collections.singletonList(c));
-        List<Cat> allCats = dao.getAllCats();
+        List<Cars> allCars = dao.getAllCars();
         List<Person> allPersons = dao.getAllPersons();
         mv.addObject("persons", allPersons);
 
-        mv.addObject("cats", allCats);
+        mv.addObject("cats", allCars);
         return mv;
         //return showAll();
     }

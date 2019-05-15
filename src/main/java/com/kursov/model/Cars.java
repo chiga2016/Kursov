@@ -1,27 +1,22 @@
-package com.jpasample.model;
+package com.kursov.model;
 
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.Set;
-import java.util.Date;
-import java.util.HashSet;
 import javax.persistence.*;
 
 @Entity
-@Table(name="CATTABLE")
+@Table(name="cars")
 //,uniqueConstraints={@UniqueConstraint(columnNames={"NAME"})}
 @EntityListeners(EventMonitor.class)
-public class Cat {
+public class Cars {
 
     @Id
     @GeneratedValue
-    @Column(name="CAT_ID")
+    @Column(name="car_id")
     private long id; // identifier
     String name;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date birthdate;
-    private float weight;
+    String model;
+    String korobka;
+    //@Temporal(javax.persistence.TemporalType.DATE)
+    private String year;
 
     //  @Transient
     @ManyToOne(cascade={CascadeType.ALL/*CascadeType.PERSIST*/})
@@ -35,14 +30,40 @@ public class Cat {
         this.owner = owner;
     }
 
-    public Cat() {
+    public Cars(String name, String model, String korobka, String year) {
+        this.name = name;
+        this.model = model;
+        this.korobka = korobka;
+        this.year = year;
     }
 
-    public Cat(String name, float weight, Person owner) {
-        this.name = name;
-        this.weight = weight;
-        this.owner= owner;
+    public Cars() {
     }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getKorobka() {
+        return korobka;
+    }
+
+    public void setKorobka(String korobka) {
+        this.korobka = korobka;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
 
 //    private Set kittens = new HashSet();
 
@@ -61,27 +82,13 @@ public class Cat {
         this.name = name;
     }
 
-    public void setBirthdate(Date date) {
-        birthdate = date;
-    }
-    public Date getBirthdate() {
-        return birthdate;
-    }
-
-     public void setWeight(float weight) {
-        this.weight = weight;
-    }
-    public float getWeight() {
-        return weight;
-    }
-
     @Override
     public String toString() {
         String mid;
-        return super.toString()+ "{ id=" + id + " name=" + name  + " weight=" + weight + " ownerid="
+        return super.toString()+ "{ id=" + id + " name=" + name  + " ownerid="
                 ;//+(owner==null?"<none>":owner.getId())+'}';
         //+ " birthdate=" + birthdate
     }
-    
+
 
 }

@@ -1,4 +1,4 @@
-package com.jpasample.model;
+package com.kursov.model;
 
 import java.util.*;
 import javax.persistence.*;
@@ -9,10 +9,55 @@ public class Person {
     @GeneratedValue
     private long id;
 
-    @Column(name="FIO")
+    public Person(String fam, String name, String ot) {
+        this.fam = fam;
+        this.name = name;
+        this.ot = ot;
+    }
+
+    public String getFam() {
+        return fam;
+    }
+
+    public void setFam(String fam) {
+        this.fam = fam;
+    }
+
+    public String getOt() {
+        return ot;
+    }
+
+    public void setOt(String ot) {
+        this.ot = ot;
+    }
+
+    @Column(name="fam")
+    private String fam;
+
+    @Column(name="name")
     private String name;
 
-    
+    public Person(String fam, String name, String ot, String dr) {
+        this.fam = fam;
+        this.name = name;
+        this.ot = ot;
+        this.dr = dr;
+    }
+
+    public String getDr() {
+        return dr;
+    }
+
+    public void setDr(String dr) {
+        this.dr = dr;
+    }
+
+    @Column(name="ot")
+    private String ot;
+
+    @Column(name="dr")
+    private String dr;
+
     //private List<Food> food = new ArrayList<Food>();
 
     public Person() { 
@@ -31,32 +76,32 @@ public class Person {
     //   private Set<Cat> cats = new HashSet<Cat>(); // без номера и порядка!
     //@OrderBy(value="name desc")
     //@Transient
-    private List<Cat> cats = new ArrayList<Cat>();     // c номером и порядком
+    private List<Cars> cars = new ArrayList<Cars>();     // c номером и порядком
     
     //private Set<Cat> cats = new HashSet<Cat>();     // без номера и порядка!
 
-    public List<Cat> getCats() {
-        return cats;
+    public List<Cars> getCars() {
+        return cars;
     }
 
-    public void setCats(List<Cat> cats) {
-        this.cats = cats;
+    public void setCars(List<Cars> cars) {
+        this.cars = cars;
     }
     
-    public String getCatIds() {
+    public String getCarIds() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Cats: ");
-        for (Cat c : cats) {
+        sb.append("Cars: ");
+        for (Cars c : cars) {
             sb.append(c.getId());
             sb.append(',');
         }
         return sb.toString();
     }
 
-    public String getCatNames() {
+    public String getCarNames() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Cats: ");
-        for (Cat c : cats) {
+        sb.append("Cars: ");
+        for (Cars c : cars) {
             sb.append(c.getName());
             sb.append(',');
         }

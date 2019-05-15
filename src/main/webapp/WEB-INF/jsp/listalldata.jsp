@@ -9,6 +9,7 @@
         <link href="<c:url value='/main.css'/>" rel="stylesheet" type="text/css">
     </head>
     <body>
+    <!--
         <ul>
             <li><a href="init.do"/>Заполнить заново</a></li>
             <li><a href="addcat.do"/>Добавить кошку</a></li>
@@ -28,16 +29,16 @@
             
                     
         </ul>
-        
-        <h1>Кошки:</h1>
+        -->
+        <h1>Авто:</h1>
         <table><tbody>
-        <c:forEach var="x" items="${cats}">
+        <c:forEach var="x" items="${cars}">
             <tr>
                 <td>${x.id}</td>
                 <td>${x.name}</td>
-                <td>${x.weight}</td>
-                <td>${x.owner.id}</td>
-                <td>${x.owner.name}</td>
+                <td>${x.model}</td>
+                <td>${x.korobka}</td>
+                <td>${x.year}</td>
             </tr>
         </c:forEach>
         <tbody></table>
@@ -46,14 +47,19 @@
         <table><tbody>
         <c:forEach var="x" items="${persons}">
             <tr>
-                <td>${x.id}</td>
+                <td> <a href="/deletePerson.do"></a> ${x.id}</td>
+                <td>${x.fam}</td>
                 <td>${x.name}</td>
-                <td>${x.catIds}</td>
-                <td>${x.catNames}</td>
+                <td>${x.ot}</td>
+                <td>${x.dr}</td>
+                <td>${x.carIds}</td>
+                <td>${x.carNames}</td>
             </tr>
         </c:forEach>
         <tbody></table>
         
         <div class="status">${status}</div>
+
+
     </body>
 </html>

@@ -1,15 +1,13 @@
-package com.jpasample.dao;
-import com.jpasample.model.Cat;
-import com.jpasample.model.Person;
+package com.kursov.dao;
+import com.kursov.model.Cars;
+import com.kursov.model.Cat;
+import com.kursov.model.Person;
 import java.util.List;
 import java.util.Random;
 import javax.persistence.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 @Repository
@@ -25,35 +23,48 @@ public class HiberDAO {
     public HiberDAO() {
     }
 
+
     @Transactional
-    public Cat addRandomCat() {
+    public Person addPerson(String fam, String name, String ot, String dr) {
         // 1--EntityManager em = emf.createEntityManager();
-        Cat c = new Cat();
+        Person p = new Person(fam, name, ot, dr);
         // 1--em.getTransaction().begin();
-        c.setName("Cat"+r.nextInt(100));
-        c.setWeight(1.0f+r.nextInt(40)/10.0f);
-        em.persist(c);
+        /////////c.setName("Cat"+r.nextInt(100));
+        ////////////c.setWeight(1.0f+r.nextInt(40)/10.0f);
+        em.persist(p);
         // 1--em.getTransaction().commit();
-        lastStatus = "Кошка добавлена!";
-        return c;
+        lastStatus = "Чувак добавлен!";
+        return p;
     }
-    
-    public List<Cat> getAllCats() {
-       // 1-- EntityManager em = emf.createEntityManager();
-        List<Cat> res = em.createQuery("select c from Cat c",Cat.class).getResultList();
+
+
+    @Transactional
+    public Cars addCars(String name, String model, String korobka, String year) {
+        // 1--EntityManager em = emf.createEntityManager();
+        Cars cars = new Cars(name, model, korobka, year);
+        // 1--em.getTransaction().begin();
+        /////////c.setName("Cat"+r.nextInt(100));
+        ////////////c.setWeight(1.0f+r.nextInt(40)/10.0f);
+        em.persist(cars);
+        // 1--em.getTransaction().commit();
+        lastStatus = "Тачка добавлена!";
+        return cars;
+    }
+
+    public List<Cars> getAllCars() {
+        // 1-- EntityManager em = emf.createEntityManager();
+        List<Cars> res = em.createQuery("select c from Cars c",Cars.class).getResultList();
         return res;
     }
 
     @Transactional
     public List<Person> getAllPersons() {
         // 1--EntityManager em = emf.createEntityManager();
-        //2--  List<Person> res = em.createQuery("select p from Person p",Person.class).getResultList();
-         List<Person> res = em.createQuery("select p from Person p LEFT JOIN FETCH p.cats",Person.class).getResultList();
-//        for (Person p: res ) {
-//            p.getCats().size();
-//        }
-
-
+          List<Person> res = em.createQuery("select p from Person p",Person.class).getResultList();
+       //  List<Person> res = em.createQuery("select p from Person p LEFT JOIN FETCH p.cats",Person.class).getResultList();
+        for (Person p: res ) {
+            p.getCars().size();
+        }
         return res;
     }
 
@@ -63,33 +74,29 @@ public class HiberDAO {
         //em.createQuery("delete from Cat c where c.id>0").executeUpdate();
         //Cat c;
         // 1--em.getTransaction().begin();
-        em.createQuery("delete from Cat c where c.id>0").executeUpdate();
+        em.createQuery("delete from Cars c where c.car_id>0").executeUpdate();
         em.createQuery("delete from Person c where c.id>0").executeUpdate();
-       Person p1 = new Person("Ivan");
-        Person p2 = new Person("Oleg");
+       Person p1 = new Person("Ivanov","Ivan", "Ivanovich", "01.01.2019");
+        Person p2 = new Person("Olegov", "oleg", "Olegovich", "01.05.2019");
         em.persist(p2);
-        Person p3 = new Person("Petr");
+        Person p3 = new Person("Petrov", "Petr", "Petrovich", "01.05.2018");
         em.persist(p3);
-        Person p4 = new Person("Anton");
+        Person p4 = new Person("Antonov", "Anton", "Antonovich", "01.08.2018");
         em.persist(p4);
-        Person p5 = new Person("Bob");
+        Person p5 = new Person("Bobov", "Bob", "Bobovich", "01.06.2018");
         em.persist(p5);
 
-        Cat c1 = new Cat("Barsik", 5.0f, p1);
+        Cars c1 = new Cars("name", "model","M","2013");
         //em.persist(c1);
-        Cat c2 = new Cat("Muska", 2.0f, null);
-        em.persist(c2);
-        Cat c3 = new Cat("Pushok", 0.5f, null);
-        em.persist(c3);
-        Cat c4 = new Cat("Tom", 0.6f, p1);
+        Cars c4 = new Cars("name", "model","M","2013");
         //em.persist(c4);
 
-        p1.getCats().add(c1);
-        p1.getCats().add(c4);
+        p1.getCars().add(c1);
+        p1.getCars().add(c4);
         em.persist(p1);
         c1.setOwner(p2);
         // 1--em.getTransaction().commit();
-        lastStatus = "Кошки построены!";
+        lastStatus = "Тачки построены!";
     }
 
     /// проблема с многопоточным доступом! 
@@ -97,16 +104,16 @@ public class HiberDAO {
         return lastStatus;
     }
 
-    public Cat getCatById(int i) {
-        return new Cat("??", 0f, null);
-    }
+    //public Cat getCatById(int i) {
+     //   return new Cat("??", 0f, null);
+    //}
 
     @Transactional
-    public Cat findCatById(long i, EntityManager em) {
+    public Cars findCarById(long i, EntityManager em) {
         //EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("select c from Cat c where c.id=:paramName ");
+        Query query = em.createQuery("select c from Cars c where c.car_id=:paramName ");
         query.setParameter("paramName", i);
-        Cat res = (Cat)query.getSingleResult();
+        Cars res = (Cars)query.getSingleResult();
         //resultList.forEach(System.out::println);
         // em.close();
         // EntityManager em = emf.createEntityManager();
@@ -116,11 +123,11 @@ public class HiberDAO {
     }
 
     @Transactional
-    public Cat findCat(long i) {
+    public Cars findCar(long i) {
         // 1--EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("select c from Cat c where c.id=:paramName ");
+        Query query = em.createQuery("select c from Cars c where c.car_id=:paramName ");
         query.setParameter("paramName", i);
-        Cat res = (Cat)query.getSingleResult();
+        Cars res = (Cars)query.getSingleResult();
         //resultList.forEach(System.out::println);
        // em.close();
        // EntityManager em = emf.createEntityManager();
@@ -139,14 +146,14 @@ public class HiberDAO {
     }
 
     @Transactional
-    public void deleteCat(long id) {
+    public void deleteCar(long id) {
         // 1--EntityManager em = emf.createEntityManager();
         // 1--em.getTransaction().begin();
-        Cat c = findCat( id);
+        Cars c = findCar( id);
         c=em.merge(c);
         em.remove(c);
         // 1--em.getTransaction().commit();
-        lastStatus = "Кошка удалена!";
+        lastStatus = "Тачка удалена!";
     }
 
     @Transactional
@@ -169,9 +176,9 @@ public class HiberDAO {
     public void changePerson(long pid, long cid) {
         // 1--EntityManager em = emf.createEntityManager();
         // 1-- em.getTransaction().begin();
-        Cat c = findCatById(cid, em) ;
+        Cars c = findCarById(cid, em) ;
         Person p = findPersonById(pid, em);
-        System.out.print("Кота " + c + " передаем персоне ");
+        System.out.print("Тачку " + c + " передаем персоне ");
         System.out.println(p);
         c.setOwner(p);
         //em.createQuery("delete  from Person p where p.id=:?").setParameter(1,id).executeUpdate();
@@ -179,7 +186,7 @@ public class HiberDAO {
         //query.setParameter("param", id);
         //int rowsDeleted = query.executeUpdate();
         // 1--em.getTransaction().commit();
-        lastStatus = "Кошка переприсвоена!";
+        lastStatus = "Тачка переприсвоена!";
     }
 
 }
