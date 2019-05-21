@@ -37,11 +37,11 @@ public class Person {
     @Column(name="name")
     private String name;
 
-    public Person(String fam, String name, String ot, String dr) {
+    public Person(String fam, String name, String ot, String dr, String vuNumber) {
         this.fam = fam;
         this.name = name;
         this.ot = ot;
-        this.dr = dr;
+        this.vuNumber = vuNumber;
     }
 
     public String getDr() {
@@ -58,11 +58,18 @@ public class Person {
     @Column(name="dr")
     private String dr;
 
-    //private List<Food> food = new ArrayList<Food>();
+    public String getVuNumber() {
+        return vuNumber;
+    }
 
-    public Person() { 
-       // убрать - нарушает соотвтетсвтие базе
-       // cats.add(new Cat("?",1f, this));
+    public void setVuNumber(String vuNumber) {
+        this.vuNumber = vuNumber;
+    }
+
+    @Column(name="vuNumber")
+    private String vuNumber;
+
+    public Person() {
     }
     
     public Person(String name) {
@@ -109,7 +116,6 @@ public class Person {
     }
     
     // Неизвестно, как отображать в БД
-    // private Map<String,Cat> catMap = new HashMap<String,Cat>();
 
     public long getId() {
         return id;

@@ -23,7 +23,7 @@ public class HiberDAO {
     public HiberDAO() {
     }
 
-
+/*
     @Transactional
     public Person addPerson(String fam, String name, String ot, String dr) {
         // 1--EntityManager em = emf.createEntityManager();
@@ -36,7 +36,19 @@ public class HiberDAO {
         lastStatus = "Чувак добавлен!";
         return p;
     }
-
+*/
+@Transactional
+public Person addPerson(Person p) {
+    // 1--EntityManager em = emf.createEntityManager();
+    //Person p = new Person(fam, name, ot, dr);
+    // 1--em.getTransaction().begin();
+    /////////c.setName("Cat"+r.nextInt(100));
+    ////////////c.setWeight(1.0f+r.nextInt(40)/10.0f);
+    em.persist(p);
+    // 1--em.getTransaction().commit();
+    lastStatus = "Чувак добавлен!";
+    return p;
+}
 
     @Transactional
     public Cars addCars(String name, String model, String korobka, String year) {

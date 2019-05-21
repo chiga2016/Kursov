@@ -43,14 +43,14 @@ public class MainController {
         return mv;              
     }
     
-    @RequestMapping("showCat.do")
+    @RequestMapping("showCar.do")
     public ModelAndView showOne(long id) {
-        ModelAndView mv = new ModelAndView("listalldata");
+        ModelAndView mv = new ModelAndView("showCars");
         //Cat c = dao.getCatById(1);
 
         Cars c = dao.findCar(id);
-        mv.addObject("cats", Collections.singletonList(c));
-        mv.addObject("persons", dao.getAllPersons());
+        mv.addObject("cars", Collections.singletonList(c));
+        //mv.addObject("persons", dao.getAllPersons());
         return mv;              
     }
 
@@ -98,7 +98,8 @@ public class MainController {
 
     @RequestMapping(value = "/add/person", method = RequestMethod.POST)
     public ModelAndView addUser(@ModelAttribute("user") Person person)  {
-        dao.addPerson(person.getFam(), person.getName(), person.getOt(), person.getDr() );
+       // dao.addPerson(person.getFam(), person.getName(), person.getOt(), person.getDr() );
+        dao.addPerson(person);
         return showAll();
     }
 
