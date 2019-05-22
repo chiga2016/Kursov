@@ -86,6 +86,7 @@ public Person addPerson(Person p) {
         //em.createQuery("delete from Cat c where c.id>0").executeUpdate();
         //Cat c;
         // 1--em.getTransaction().begin();
+        /*
         em.createQuery("delete from Cars c where c.car_id>0").executeUpdate();
         em.createQuery("delete from Person c where c.id>0").executeUpdate();
        Person p1 = new Person("Ivanov","Ivan", "Ivanovich", "01.01.2019");
@@ -106,7 +107,7 @@ public Person addPerson(Person p) {
         p1.getCars().add(c1);
         p1.getCars().add(c4);
         em.persist(p1);
-        c1.setOwner(p2);
+        c1.setOwner(p2);*/
         // 1--em.getTransaction().commit();
         lastStatus = "Тачки построены!";
     }

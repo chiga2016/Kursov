@@ -66,8 +66,19 @@ public class Person {
         this.vuNumber = vuNumber;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Column(name="vuNumber")
     private String vuNumber;
+
+    @Column(name="phone")
+    private String phone;
 
     public Person() {
     }

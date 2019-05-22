@@ -18,6 +18,9 @@
     <h5>Nam</h5><input title="name" type="text" name="name" value="Ilgiz"><br>
     <h5>Ot</h5><input title="ot" type="text" name="ot" value="Faritovich"><br>
     <h5>DR</h5><input title="dr" type="date" name="dr" value="25.12.1986"><br>
+    <h5>vuNumber</h5><input title="vuNumber" type="text" name="vuNumber" value="0207727737"><br>
+    <h5>Phone</h5><input title="phone" type="text" name="phone" value="899899520151"><br>
+
     <input type="submit" name="OK" value="OK">
 </form>
 </body>
