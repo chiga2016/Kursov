@@ -54,6 +54,7 @@
                 <td>${x.dr}</td>
                 <td>${x.vuNumber}</td>
                 <td>${x.phone}</td>
+
             </tr>
         </c:forEach>
         <tbody></table>

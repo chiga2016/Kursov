@@ -1,6 +1,5 @@
 package com.kursov.dao;
 import com.kursov.model.Cars;
-import com.kursov.model.Cat;
 import com.kursov.model.Person;
 import java.util.List;
 import java.util.Random;
@@ -74,9 +73,11 @@ public Person addPerson(Person p) {
         // 1--EntityManager em = emf.createEntityManager();
           List<Person> res = em.createQuery("select p from Person p",Person.class).getResultList();
        //  List<Person> res = em.createQuery("select p from Person p LEFT JOIN FETCH p.cats",Person.class).getResultList();
+        /*
         for (Person p: res ) {
             p.getCars().size();
         }
+        */
         return res;
     }
 

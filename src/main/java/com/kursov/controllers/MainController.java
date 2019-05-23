@@ -3,7 +3,7 @@ package com.kursov.controllers;
 
 import com.kursov.dao.HiberDAO;
 import com.kursov.model.Cars;
-import com.kursov.model.Cat;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -13,12 +13,12 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 public class MainController {
@@ -80,7 +80,6 @@ public class MainController {
         List<Person> allPersons = dao.getAllPersons();
         mv.addObject("persons", allPersons);
 
-        mv.addObject("cats", allCars);
         return mv;
         //return showAll();
     }
@@ -97,10 +96,11 @@ public class MainController {
     }
 
     @RequestMapping(value = "/add/person", method = RequestMethod.POST)
-    public ModelAndView addUser(@ModelAttribute("user") Person person)  {
+    public String  addUser(@ModelAttribute("user") Person person)  {
        // dao.addPerson(person.getFam(), person.getName(), person.getOt(), person.getDr() );
         dao.addPerson(person);
-        return showAll();
+        return "afterRegister";
+        //return showAll();
     }
 
 
@@ -115,10 +115,15 @@ public class MainController {
         return "addCar";
     }
 
+    @RequestMapping("login.do")
+    public String login(){
+        return "login";
+    }
 
-    @RequestMapping("addPerson.do")
+
+    @RequestMapping("register.do")
     public String addPerson(){
-        return "addperson";
+        return "register";
     }
 
 
