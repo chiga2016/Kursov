@@ -14,20 +14,21 @@ public class LoginController {
     @Autowired
     com.kursov.model.CurrentUserBean ub;
 
-  //  @ModelAttribute(name="user") // без name не заработает, выберет имя сам
+    //  @ModelAttribute(name="user") // без name не заработает, выберет имя сам
     public String getUser() {
         return ub.getUsername();
     }
 
     @RequestMapping(value="login")
-        public String login() {
-            return "login";
-        }
+    public String login() {
+        return "login";
+    }
 
-    @RequestMapping(value="login.do",method=RequestMethod.POST)
-    //public String login( @RequestParam(required=true) String u, @RequestParam(required=true) String p  ) {
-    public String login(@RequestParam(value="login") String u,@RequestParam(value="pass") String p){
-        String result="";
+
+@RequestMapping(value="login.do",method=RequestMethod.POST)
+//public String login( @RequestParam(required=true) String u, @RequestParam(required=true) String p  ) {
+public String login(@RequestParam(value="login") String u,@RequestParam(value="pass") String p){
+    String result="";
       /*  if(ub.login(u,p)){
             result=  "redirect:add.do";
 

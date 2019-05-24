@@ -13,7 +13,7 @@
 <body>
 <h3>Register new user</h3>
 <br>
-<form action="http://localhost:8090/JPAsample_war_exploded/add/person" method="post">
+<form action="http://localhost:8090/add/person" method="post">
     <h5>Fam</h5><input title="fam" type="text" name="fam" value="Balagutdinov"><br>
     <h5>Nam</h5><input title="name" type="text" name="name" value="Ilgiz"><br>
     <h5>Ot</h5><input title="ot" type="text" name="ot" value="Faritovich"><br>

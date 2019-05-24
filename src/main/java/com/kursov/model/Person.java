@@ -127,6 +127,45 @@ public class Person {
         this.name = name;
     }
 
+    public String getEnable() {
+        return enable;
+    }
+
+    public void setEnable(String enable) {
+        this.enable = enable;
+    }
+
+    public String getVuNumber() {
+        return vuNumber;
+    }
+
+    public void setVuNumber(String vuNumber) {
+        this.vuNumber = vuNumber;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
     @Override
     public String toString() {
         return super.toString()+" {" + "id=" + id + " name=" + name + '}';

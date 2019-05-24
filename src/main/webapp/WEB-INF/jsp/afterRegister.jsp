@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>afterRegister</title>
-    <meta http-equiv="refresh" content="3;http://localhost:8090/JPAsample_war_exploded/login.do">
+    <meta http-equiv="refresh" content="3;http://localhost:8090/login.do">
 </head>
 <body>
 Спасибо за регистрацию
